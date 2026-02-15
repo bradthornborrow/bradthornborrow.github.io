@@ -1,4 +1,4 @@
-baseURL = "https://thedeskofbrad.ca"
+baseURL = "https://bradthornborrow.ca"
 title = "Brad Thornborrow"
 languageCode = "en-us"
 theme = "hello-friend-ng"
@@ -69,8 +69,8 @@ disableHugoGeneratorInject = false
 
   # Social icons
   [[params.social]]
-    name = "github"
-    url  = "https://github.com/bradthornborrow"
+    name = "gitlab"
+    url  = "https://gitlab.com/bradthornborrow"
 
   [[params.social]]
     name = "linkedin"
@@ -78,7 +78,7 @@ disableHugoGeneratorInject = false
 
   [[params.social]]
     name = "mastodon"
-    url  = "https://mstdn.ca/web/@bradthornborrow"
+    url  = "https://thecanadian.social/@bradthornborrow"
 
   [[params.social]]
     name = "youtube"
