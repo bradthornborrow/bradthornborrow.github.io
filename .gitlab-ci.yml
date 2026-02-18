@@ -12,6 +12,16 @@ variables:
 image:
   name: golang:1.25.6-bookworm
 
+job:on-schedule:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  script:
+    - echo "- $((RANDOM % 1000))" > ./data/random.yml
+    - git config --local user.name "Brad Thornborrow"
+    - git config --local user.email "brad@bradthornborrow.ca" 
+    - git commit -am "Update random seed file"
+    - git push
+
 pages:
   stage: deploy
   script:
