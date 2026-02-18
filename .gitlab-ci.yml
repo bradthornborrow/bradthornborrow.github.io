@@ -15,8 +15,9 @@ image:
 job:on-schedule:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
-  script:
-    - echo "- $((RANDOM % 1000))" > ./data/random.yml
+  script
+    - git checkout main
+    - echo "- $((RANDOM % 1000))" > /builds/bradthornborrow/bradthornborrow.gitlab.io/data/random.yml
     - git config --local user.name "Brad Thornborrow"
     - git config --local user.email "brad@bradthornborrow.ca" 
     - git commit -am "Update random seed file"
