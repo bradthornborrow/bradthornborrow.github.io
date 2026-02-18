@@ -20,7 +20,7 @@ job:on-schedule:
     - git config --local user.name "Brad Thornborrow"
     - git config --local user.email "brad@bradthornborrow.ca" 
     - git commit -am "Update random seed file"
-    - git push
+    - git push origin main
 
 pages:
   stage: deploy
