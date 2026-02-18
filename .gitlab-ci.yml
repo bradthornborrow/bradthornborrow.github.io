@@ -16,12 +16,12 @@ job:on-schedule:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
   script:
-    - git checkout main
-    - echo "- $((RANDOM % 1000))" > /builds/bradthornborrow/bradthornborrow.gitlab.io/data/random.yml
-    - git config --local user.name "Brad Thornborrow"
-    - git config --local user.email "brad@bradthornborrow.ca" 
+    - git config --global user.email "$GITLAB_USER_EMAIL"
+    - git config --global user.name "$GITLAB_USER_NAME"
+    - git remote set-url --push origin $CI_REPOSITORY_URL
+    - echo "- $((RANDOM % 1000))" > ./data/random.yml
     - git commit -am "Update random seed file"
-    - git push origin main
+    - git push origin HEAD:$CI_COMMIT_REF_NAME
 
 pages:
   stage: deploy
