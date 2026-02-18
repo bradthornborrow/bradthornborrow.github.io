@@ -89,4 +89,5 @@ pages:
     paths:
       - public
   rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
