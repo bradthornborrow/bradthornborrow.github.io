@@ -13,13 +13,17 @@ variables:
 image:
   name: golang:1.25.6-bookworm
 
+stages:
+  - daily-update
+  - deploy
+
 job:on-schedule:
+     stage: daily-update
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
   script:
     - git config --global user.email "$GITLAB_USER_EMAIL"
     - git config --global user.name "$GITLAB_USER_NAME"
-    - git remote set-url --push origin $CI_REPOSITORY_URL
     - echo "- $((RANDOM % 1000))" > ./data/random.yml
     - git commit -am "Update random seed file"
     - git push origin HEAD:$CI_COMMIT_REF_NAME
