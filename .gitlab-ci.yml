@@ -13,24 +13,19 @@ variables:
 image:
   name: golang:1.25.6-bookworm
 
-stages:
-  - motd-update
-  - deploy
-
-job:on-schedule:
-  stage: motd-update
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-  script:
-    - git config --global user.email "$GITLAB_USER_EMAIL"
-    - git config --global user.name "$GITLAB_USER_NAME"
-    - echo "- $((RANDOM % 1000))" > ./data/random.yml
-    - git commit -am "Update random seed file"
-    - git push origin HEAD:$CI_COMMIT_REF_NAME
-
 pages:
   stage: deploy
   script:
+    # Update MOTD random seed file
+    - |
+      if [ "$CI_PIPELINE_SOURCE" = "schedule" ]; then
+        git config --global user.email "$GITLAB_USER_EMAIL"
+        git config --global user.name "$GITLAB_USER_NAME"
+        echo "- $((RANDOM % 1000))" > ./data/random.yml
+        git commit -am "Update random seed file"
+        git push origin HEAD:$CI_COMMIT_REF_NAME
+      fi
+
     # Create directory for user-specific executable files
     - echo "Creating directory for user-specific executable files..."
     - mkdir -p "${HOME}/.local"
@@ -93,4 +88,4 @@ pages:
     paths:
       - public
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
