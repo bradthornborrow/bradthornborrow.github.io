@@ -14,11 +14,11 @@ image:
   name: golang:1.25.6-bookworm
 
 stages:
-  - daily-update
+  - motd-update
   - deploy
 
 job:on-schedule:
-  stage: daily-update
+  stage: motd-update
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
   script:
@@ -93,5 +93,4 @@ pages:
     paths:
       - public
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
