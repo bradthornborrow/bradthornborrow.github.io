@@ -8,7 +8,7 @@ on:
 
   # Push once daily to update random keyfilw
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 4 * * *"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -51,8 +51,8 @@ jobs:
         if: ${{ github.event_name == 'schedule' }}
         run: |
           echo "- $((RANDOM % 1000))" > ./data/random.yml
-          git config --local user.name github-actions
-          git config --local user.email github-actions@github.com
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git commit -am "Update random seed file"
           git push
       - name: Setup Pages
